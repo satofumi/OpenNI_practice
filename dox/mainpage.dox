@@ -1,0 +1,28 @@
+/*!
+  \mainpage OpenNI Practice
+
+  - \subpage about_kinect_page
+    - \ref about_kinect_abstract
+    - \ref about_kinect_depth
+
+  - OpenNI について
+    - 概要
+      - 何ができるライブラリなのか
+      - ライセンス
+    - インストール方法
+    - 付属サンプルの実行
+
+  - Kinect と OpenNI を使った簡単なサンプルの紹介
+    - 手の位置の検出
+    - ボーンの表示
+    - 深度画像の表示
+    - RGB 画像の表示
+    - 音の取得
+    - 向きを変えるモータの駆動
+
+  - Kinect と OpenNI を使ったアプリケーションの紹介
+    - ジェスチャーによるパワーポイントのスライドめくり
+    - モーションの比較
+    - チャンバラ
+    - 音の発生源の位置の推定
+*/
