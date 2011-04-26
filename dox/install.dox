@@ -3,12 +3,47 @@
 
   !!!
 
+upgrade 10.10
+
+  OpenNI のインストール
+
+http://www.openni.org/downloadfiles
+
+
+git clone https://github.com/OpenNI/OpenNI OpenNI
+cd OpenNI/Platform/Linux-x86/Build/
+make
+
+libusb-1.0-0-dev
+
+sudo make install
+
+
+https://github.com/PrimeSense/Sensor
+git clone https://github.com/PrimeSense/Sensor Sensor
+
+cd Platform/Linux-x86/Build/
+make
+
+sudo make install
+
+
   NITE のダウンロードサイト
   http://www.primesense.com/?p=515
 
   NITE-Bin-Linux32-v1.3.1.3.tar.bz2 をダウンロードした。
 
-  tar jxvf NITE-Bin-Linux32-v1.3.1.3.tar.bz2
+tar jxvf NITE-Bin-Linux32-v1.3.1.3.tar.bz2
+cd Nite-1.3.1.3
+
+
+chmod u+w Data/*.xml
+add license key
+
+
+git clone https://github.com/avin2/SensorKinect/tree/master
+
+
 
 
 http://www.primesense.com/?p=515
