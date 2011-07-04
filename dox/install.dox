@@ -1,6 +1,13 @@
 /*!
   \page install_page インストール
 
+mkdir OpenNI
+cd OpenNI
+tar xvf ../OpenNI-Bin-Linux32-v1.1.0.41.tar.bz2 
+sudo ./install.sh
+
+
+
   !!!
 
 upgrade 10.10
