@@ -10,7 +10,12 @@
 #include "Depth_2d_driver.h"
 
 
-Depth_2d_driver::Depth_2d_driver(void)
+struct Depth_2d_driver::pImpl
+{
+};
+
+
+Depth_2d_driver::Depth_2d_driver(void) : pimpl(new pImpl)
 {
     // !!!
 }

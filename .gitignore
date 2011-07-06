@@ -1,1 +1,8 @@
 generated_html
+
+*.o
+ui_*.h
+moc_*.cpp
+
+src/Depth_2d_viewer/Depth_2d_viewer
+src/Depth_2d_viewer/Makefile
