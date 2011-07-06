@@ -20,7 +20,7 @@ namespace
     };
 
 
-    const char* Config_file = "../SampleConfig.xml";
+    const char* Config_file = "../SamplesConfig.xml";
 }
 
 
@@ -35,6 +35,7 @@ struct Depth_2d_driver::pImpl
         // 途中で初期化に失敗したときに、適切にクリーンアップされるようにすべき
 	XnStatus status = context_.InitFromXmlFile(Config_file);
 	if (status != XN_STATUS_OK) {
+	    fprintf(stderr, "InitFromXmlFile() failed.\n");
 	    return false;
 	}
 
@@ -48,6 +49,7 @@ struct Depth_2d_driver::pImpl
 
 	status = context_.FindExistingNode(XN_NODE_TYPE_DEPTH, depth_);
 	if (status != XN_STATUS_OK) {
+	    fprintf(stderr, "FindExistingNode() failed.\n");
 	    return false;
 	}
 
@@ -174,6 +176,7 @@ bool Depth_2d_driver::get_distance(std::vector<long>& data, long *time_stamp)
     // 中心の高さのデータを返す
     int scan_height = depth_meta_data.YRes() / 2;
 
+    data.clear();
     data.reserve(width);
     for (int x = width - 1; x >= 0; --x) {
         data.push_back(depth_meta_data(x, scan_height));

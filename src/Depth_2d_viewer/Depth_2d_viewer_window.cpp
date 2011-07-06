@@ -14,6 +14,8 @@
 #include "Length_receive_thread.h"
 #include <QSettings>
 
+#include <cstdio>
+
 
 namespace
 {
@@ -108,6 +110,7 @@ void Depth_2d_viewer_window::run_button_clicked(void)
     // !!! デフォルトパラメータを指定するのでもよい
     if (!pimpl->driver_.open("", 0, qrk::Lidar::Serial)) {
         // !!! エラーメッセージの表示
+        fprintf(stderr, "Depth_2d_driver::open() failed.\n");
         return;
     }
 
