@@ -9,9 +9,12 @@
     - \ref about_openni_abstract
     - \ref about_openni_install
 
-  - Kinect の深度情報の票化
+  - \subpage depth_evaluate_page
+    - \ref depth_evaluate_page_x_y
+
+  - 深度情報を使ったデモ
     - !!!
 
-  - デモプログラム
+  - ボーン情報を使ったデモ
     - !!!
 */
