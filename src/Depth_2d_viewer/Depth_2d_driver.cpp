@@ -8,10 +8,58 @@
 */
 
 #include "Depth_2d_driver.h"
+#include <XnCppWrapper.h>
+#include <opencv/cv.h>
+
+
+namespace
+{
+    enum {
+      Min_distance = 500,
+      Max_distance = 10000,
+    };
+
+
+    const char* Config_file = "../SampleConfig.xml";
+}
 
 
 struct Depth_2d_driver::pImpl
 {
+    IplImage* camera_;
+    bool is_initialized_;
+    xn::DepthGenerator depth_;
+
+
+    pImpl(void) : camera_(NULL)
+    {
+    }
+
+
+    bool open(void)
+    {
+        // 途中で初期化に失敗したときに、適切にクリーンアップされるようにすべき
+        xn::Context context;
+	XnStatus status = context.InitFromXmlFile(Config_file);
+	if (status != XN_STATUS_OK) {
+	    return false;
+	}
+
+#if 0
+	xn::ImageGenerator image;
+	status = context.FindExistingNode(XN_NODE_TYPE_IMAGE, image);
+	if (status != XN_STATUS_OK) {
+	    return false;
+	}
+#endif
+
+	status = context.FindExistingNode(XN_NODE_TYPE_DEPTH, depth_);
+	if (status != XN_STATUS_OK) {
+	    return false;
+	}
+
+	return true;
+    }
 };
 
 
@@ -37,11 +85,11 @@ const char* Depth_2d_driver::what(void) const
 bool Depth_2d_driver::open(const char* device_name, long baudrate,
                            connection_type_t type)
 {
-    (void)device_name;
-    (void)baudrate;
-    (void)type;
-     // !!!
-    return false;
+    static_cast<void>(device_name);
+    static_cast<void>(baudrate);
+    static_cast<void>(type);
+
+    return pimpl->open();
 }
 
 
@@ -107,7 +155,7 @@ bool Depth_2d_driver::is_stable(void)
 bool Depth_2d_driver::start_measurement(measurement_type_t type,
                                         int scan_times, int skip_scan)
 {
-    (void)type;
+    static_cast<void>(type);
     (void)scan_times;
     (void)skip_scan;
     // !!!
@@ -272,15 +320,13 @@ int Depth_2d_driver::max_step(void) const
 
 long Depth_2d_driver::min_distance(void) const
 {
-    // !!!
-    return 0;
+    return Min_distance;
 }
 
 
 long Depth_2d_driver::max_distance(void) const
 {
-    // !!!
-    return 0;
+    return Max_distance;
 }
 
 

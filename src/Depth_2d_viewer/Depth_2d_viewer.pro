@@ -6,7 +6,9 @@ QT += opengl
 TEMPLATE = app
 TARGET =
 DEPENDPATH += .
-INCLUDEPATH += .
+INCLUDEPATH += . /usr/include/ni
+
+LIBS += -lOpenNI
 
 # Input
 HEADERS += Depth_2d_driver.h Depth_2d_viewer_window.h Length_value_view_widget.h Length_draw_widget.h
