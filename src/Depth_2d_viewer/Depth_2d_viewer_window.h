@@ -24,6 +24,9 @@ public:
     Depth_2d_viewer_window(void);
     ~Depth_2d_viewer_window(void);
 
+private slots:
+    void run_button_clicked(void);
+
 private:
     struct pImpl;
     std::auto_ptr<pImpl> pimpl;

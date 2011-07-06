@@ -11,6 +11,7 @@
 #include "Length_draw_widget.h"
 #include "Length_value_view_widget.h"
 #include "Depth_2d_driver.h"
+#include "Length_receive_thread.h"
 #include <QSettings>
 
 
@@ -30,13 +31,15 @@ namespace
 struct Depth_2d_viewer_window::pImpl
 {
     Depth_2d_viewer_window* widget_;
-    Depth_2d_driver lidar_;
+    Depth_2d_driver driver_;
     Length_draw_widget length_draw_widget_;
     Length_value_view_widget length_value_view_widget_;
+    Length_receive_thread length_receive_thread_;
 
 
     pImpl(Depth_2d_viewer_window* widget)
-        : widget_(widget), length_draw_widget_(lidar_)
+        : widget_(widget), length_draw_widget_(driver_),
+          length_receive_thread_(driver_)
     {
     }
 
@@ -57,6 +60,10 @@ struct Depth_2d_viewer_window::pImpl
         // メニュー設定
         connect(widget_->action_quit_, SIGNAL(triggered()),
                 widget_, SLOT(close()));
+
+        // シグナル処理
+        connect(widget_->run_button_, SIGNAL(clicked()),
+                widget_, SLOT(run_button_clicked()));
     }
 
 
@@ -91,4 +98,19 @@ Depth_2d_viewer_window::Depth_2d_viewer_window(void)
 Depth_2d_viewer_window::~Depth_2d_viewer_window(void)
 {
     pimpl->save_settings();
+}
+
+
+void Depth_2d_viewer_window::run_button_clicked(void)
+{
+    // 計測開始
+    // !!! open(void) の作成を検討する
+    // !!! デフォルトパラメータを指定するのでもよい
+    if (!pimpl->driver_.open("", 0, qrk::Lidar::Serial)) {
+        // !!! エラーメッセージの表示
+        return;
+    }
+
+    // 計測スレッドの起動
+    pimpl->length_receive_thread_.start();
 }

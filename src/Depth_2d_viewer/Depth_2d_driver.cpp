@@ -15,8 +15,8 @@
 namespace
 {
     enum {
-      Min_distance = 500,
-      Max_distance = 10000,
+        Min_distance = 500,
+        Max_distance = 10000,
     };
 
 
@@ -26,34 +26,27 @@ namespace
 
 struct Depth_2d_driver::pImpl
 {
-    IplImage* camera_;
-    bool is_initialized_;
+    xn::Context context_;
     xn::DepthGenerator depth_;
-
-
-    pImpl(void) : camera_(NULL)
-    {
-    }
 
 
     bool open(void)
     {
         // 途中で初期化に失敗したときに、適切にクリーンアップされるようにすべき
-        xn::Context context;
-	XnStatus status = context.InitFromXmlFile(Config_file);
+	XnStatus status = context_.InitFromXmlFile(Config_file);
 	if (status != XN_STATUS_OK) {
 	    return false;
 	}
 
 #if 0
 	xn::ImageGenerator image;
-	status = context.FindExistingNode(XN_NODE_TYPE_IMAGE, image);
+	status = context_.FindExistingNode(XN_NODE_TYPE_IMAGE, image);
 	if (status != XN_STATUS_OK) {
 	    return false;
 	}
 #endif
 
-	status = context.FindExistingNode(XN_NODE_TYPE_DEPTH, depth_);
+	status = context_.FindExistingNode(XN_NODE_TYPE_DEPTH, depth_);
 	if (status != XN_STATUS_OK) {
 	    return false;
 	}
@@ -156,19 +149,37 @@ bool Depth_2d_driver::start_measurement(measurement_type_t type,
                                         int scan_times, int skip_scan)
 {
     static_cast<void>(type);
-    (void)scan_times;
-    (void)skip_scan;
+    static_cast<void>(scan_times);
+    static_cast<void>(skip_scan);
+
     // !!!
+
     return false;
 }
 
 
 bool Depth_2d_driver::get_distance(std::vector<long>& data, long *time_stamp)
 {
-    (void)data;
-    (void)time_stamp;
-    // !!!
-    return false;
+    static_cast<void>(time_stamp);
+
+    pimpl->context_.WaitAndUpdateAll();
+
+    xn::DepthMetaData depth_meta_data;
+    pimpl->depth_.GetMetaData(depth_meta_data);
+
+    // センサを上から見たときと同じデータ配置になるように格納して返す
+    // !!! Mirror の仕組みを使うことを検討する
+    int width = depth_meta_data.XRes();
+
+    // 中心の高さのデータを返す
+    int scan_height = depth_meta_data.YRes() / 2;
+
+    data.reserve(width);
+    for (int x = width - 1; x >= 0; --x) {
+        data.push_back(depth_meta_data(x, scan_height));
+    }
+
+    return true;
 }
 
 
