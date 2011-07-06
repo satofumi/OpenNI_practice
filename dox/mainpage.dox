@@ -8,18 +8,10 @@
   - \subpage about_openni_page
     - \ref about_openni_abstract
     - \ref about_openni_install
-    - \ref about_openni_samples
 
-  - Kinect と OpenNI を使った簡単なサンプルの紹介
-    - 手の位置の検出
-    - ボーンの表示
-    - 深度画像の表示
-    - RGB 画像の表示
-    - 向きを変えるモータの駆動
+  - Kinect の深度情報の票化
+    - !!!
 
-  - Kinect と OpenNI を使ったアプリケーションの試作
-    - ジェスチャーによるパワーポイントのスライドめくり
-    - モーションの比較
-    - チャンバラ
-    - 音の発生源の位置の推定
+  - デモプログラム
+    - !!!
 */
