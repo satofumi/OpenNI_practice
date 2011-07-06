@@ -1,0 +1,22 @@
+/*!
+  \page about_openni_page OpenNI について (記述中)
+
+  \section about_openni_abstract 概要
+
+  OpenNI の NI は Natural Interaction で Kinect だけでなく、音声やジェスチャーといったインタラクティブな入力を行うデバイスのドライバを目指している。
+
+  - 何ができるライブラリなのか
+    - 現状では Kinect や Xtion 用のライブラリとして使われている。
+
+  - ライセンス
+    - LGPL
+
+  \section about_openni_install インストール方法
+
+  !!!
+
+
+  \section about_openni_samples 付属サンプルの実行
+
+  !!!
+*/
