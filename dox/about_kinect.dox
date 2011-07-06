@@ -1,0 +1,22 @@
+/*!
+  \page about_kinect_page Kinect について
+
+  \section about_kinect_abstract 搭載しているデバイスの種類
+
+  搭載しているデバイス
+
+  \image html kinect_devices_image.png 搭載されているデバイス
+
+  - 可視光カメラ
+  - 赤外レーザーを発光させるデバイス
+  - 赤外レーザ用のカメラ
+  - 4 つのマイク
+  - チルト方向にデバイスを動かすためのモータ
+
+
+  \section about_kinect_depth 深度情報の計測原理について
+
+  赤外レーザを発光させるデバイスから多数のスポット光が照射されており、これを三角測量の原理で計測することで、距離情報を得ていると思われる。
+
+  \image html kinect_length_measurement_image.png 三角測量の原理
+*/

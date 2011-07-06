@@ -1,9 +1,14 @@
 /*!
   \mainpage OpenNI Practice
 
-  - OpenNI について
-    - \subpage install_page
-    - 付属サンプルの実行
+  - \subpage about_kinect_page
+    - \ref about_kinect_abstract
+    - \ref about_kinect_depth
+
+  - \subpage about_openni_page
+    - \ref about_openni_abstract
+    - \ref about_openni_install
+    - \ref about_openni_samples
 
   - Kinect と OpenNI を使った簡単なサンプルの紹介
     - 手の位置の検出
