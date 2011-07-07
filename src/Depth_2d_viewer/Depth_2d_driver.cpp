@@ -195,7 +195,9 @@ bool Depth_2d_driver::get_distance(std::vector<long>& data, long *time_stamp)
     data.clear();
     data.reserve(width);
     for (int x = width - 1; x >= 0; --x) {
-        data.push_back(depth_meta_data(x, scan_height));
+        long l = depth_meta_data(x, scan_height);
+	double radian = index2rad(x);
+        data.push_back(l / cos(radian));
     }
 
     return true;
@@ -361,15 +363,13 @@ long Depth_2d_driver::scan_usec(void) const
 
 int Depth_2d_driver::max_data_size(void) const
 {
-    // !!!
-    return 0;
+    return pimpl->max_step_;
 }
 
 
 int Depth_2d_driver::max_echo_size(void) const
 {
-    // !!!
-    return 0;
+    return 1;
 }
 
 

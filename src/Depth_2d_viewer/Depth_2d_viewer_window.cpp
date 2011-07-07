@@ -73,6 +73,13 @@ struct Depth_2d_viewer_window::pImpl
                 &length_draw_widget_,
                 SLOT(set_scan_data(const long*, int,
                                    const unsigned short*, int, long)));
+
+	connect(&length_receive_thread_,
+                SIGNAL(data_received(const long*, int,
+                                     const unsigned short*, int, long)),
+                &length_value_view_widget_,
+                SLOT(data_received(const long*, int,
+                                   const unsigned short*, int, long)));
     }
 
 
@@ -120,6 +127,7 @@ void Depth_2d_viewer_window::run_button_clicked(void)
         fprintf(stderr, "Depth_2d_driver::open() failed.\n");
         return;
     }
+    pimpl->length_value_view_widget_.set_sensor_parameter(pimpl->driver_);
 
     // 計測スレッドの起動
     pimpl->length_receive_thread_.start();

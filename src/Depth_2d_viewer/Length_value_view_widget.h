@@ -47,11 +47,9 @@ public slots:
                        const unsigned short* intensity, int intensity_size,
                        long timestamp);
 
-
 private slots:
     void update_button_clicked(void);
     void current_cell_changed_slot(void);
-
 
 private:
     Length_value_view_widget(const Length_value_view_widget& rhs);
