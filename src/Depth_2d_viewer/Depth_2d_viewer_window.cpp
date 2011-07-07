@@ -41,7 +41,7 @@ struct Depth_2d_viewer_window::pImpl
 
     pImpl(Depth_2d_viewer_window* widget)
         : widget_(widget), length_draw_widget_(driver_),
-          length_receive_thread_(driver_)
+          length_receive_thread_(driver_, length_draw_widget_)
     {
     }
 
@@ -66,6 +66,13 @@ struct Depth_2d_viewer_window::pImpl
         // シグナル処理
         connect(widget_->run_button_, SIGNAL(clicked()),
                 widget_, SLOT(run_button_clicked()));
+
+	connect(&length_receive_thread_,
+                SIGNAL(data_received(const long*, int,
+                                     const unsigned short*, int, long)),
+                &length_draw_widget_,
+                SLOT(set_scan_data(const long*, int,
+                                   const unsigned short*, int, long)));
     }
 
 

@@ -17,6 +17,7 @@ namespace qrk
 {
     class Lidar;
 }
+class Length_draw_widget;
 
 
 class Length_receive_thread : public QThread
@@ -24,8 +25,16 @@ class Length_receive_thread : public QThread
     Q_OBJECT;
 
 public:
-    Length_receive_thread(qrk::Lidar& lidar);
+    Length_receive_thread(qrk::Lidar& lidar,
+			  Length_draw_widget& length_draw_widget);
     ~Length_receive_thread(void);
+
+signals:
+    void data_received(const long* length,
+		       int length_size,
+		       const unsigned short* intensity,
+		       int intensity_size,
+		       long timestamp);
 
 protected:
     void run(void);

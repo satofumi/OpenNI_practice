@@ -17,10 +17,14 @@ namespace
     enum {
         Min_distance = 500,
         Max_distance = 10000,
+
+	Default_min_step = 0,
+	Default_max_step = 640,
     };
 
-
     const char* Config_file = "../SamplesConfig.xml";
+
+    const double Vertical_viewing_deg_ = 57.0;
 }
 
 
@@ -28,6 +32,15 @@ struct Depth_2d_driver::pImpl
 {
     xn::Context context_;
     xn::DepthGenerator depth_;
+  bool is_open_;
+  int min_step_;
+  int max_step_;
+
+
+  pImpl(void) : is_open_(false),
+		min_step_(Default_min_step), max_step_(Default_max_step)
+  {
+  }
 
 
     bool open(void)
@@ -84,20 +97,23 @@ bool Depth_2d_driver::open(const char* device_name, long baudrate,
     static_cast<void>(baudrate);
     static_cast<void>(type);
 
-    return pimpl->open();
+    pimpl->is_open_ = pimpl->open();
+    return pimpl->is_open_;
 }
 
 
 void Depth_2d_driver::close(void)
 {
-    // !!!
+    if (pimpl->is_open_) {
+        // !!!
+    }
+    pimpl->is_open_ = false;
 }
 
 
 bool Depth_2d_driver::is_open(void) const
 {
-    // !!!
-    return false;
+    return pimpl->is_open_;
 }
 
 
@@ -248,17 +264,13 @@ bool Depth_2d_driver::set_sensor_time_stamp(long time_stamp)
 
 double Depth_2d_driver::index2rad(int index) const
 {
-    (void)index;
-    // !!!
-    return 0.0;
+  return (index - (pimpl->max_step_ / 2)) * Vertical_viewing_deg_ / pimpl->max_step_ * M_PI / 180.0;
 }
 
 
 double Depth_2d_driver::index2deg(int index) const
 {
-    (void)index;
-    // !!!
-    return 0.0;
+    return index2rad(index) * 180.0 / M_PI;
 }
 
 
@@ -272,9 +284,7 @@ int Depth_2d_driver::rad2index(double radian) const
 
 int Depth_2d_driver::deg2index(double degree) const
 {
-    (void)degree;
-    // !!!
-    return 0;
+    return deg2index(degree * M_PI / 180.0);
 }
 
 
@@ -320,15 +330,13 @@ int Depth_2d_driver::step2index(int step) const
 
 int Depth_2d_driver::min_step(void) const
 {
-    // !!!
-    return 0;
+    return pimpl->min_step_;
 }
 
 
 int Depth_2d_driver::max_step(void) const
 {
-    // !!!
-    return 0;
+    return pimpl->max_step_;
 }
 
 
