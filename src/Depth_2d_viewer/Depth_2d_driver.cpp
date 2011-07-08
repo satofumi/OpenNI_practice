@@ -9,7 +9,7 @@
 
 #include "Depth_2d_driver.h"
 #include <XnCppWrapper.h>
-#include <opencv/cv.h>
+#include "math_utilities.h"
 
 
 namespace
