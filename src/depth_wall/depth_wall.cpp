@@ -23,6 +23,7 @@ namespace
 
   xn::Context context_;
   xn::ImageGenerator image_;
+  xn::DepthGenerator depth_;
 
   xn::ImageMetaData image_meta_data_;
 
@@ -46,15 +47,14 @@ namespace
     }
 
     // デプスジェネレータの作成
-    xn::DepthGenerator depth;
-    status = context_.FindExistingNode(XN_NODE_TYPE_DEPTH, depth);
+    status = context_.FindExistingNode(XN_NODE_TYPE_DEPTH, depth_);
     if (status != XN_STATUS_OK) {
       cerr << "FindExistingNode(XN_NODE_TYPE_DEPTH) failed." << endl;
       return false;
     }
       
     // デプスの座標をイメージに合わせる
-    depth.GetAlternativeViewPointCap().SetViewPoint(image_);
+    depth_.GetAlternativeViewPointCap().SetViewPoint(image_);
 
     // カメラからイメージを作成
     XnMapOutputMode output_mode;
@@ -79,15 +79,36 @@ namespace
   }
 
 
-  void draw(int sphere_x, int sphere_y);
+  void draw(void)
   {
-    // 球の表示
-    // !!!
+    enum {
+      Wall_x_start = 120,
+      Wall_x_end = 520,
+      Wall_y_start = 40,
+      Wall_y_end = 440,
+      Wall_depth = 2000,
+    };
 
-    // 球の手前にある物体を描画する
+    xn::DepthMetaData depth_meta_data;
+    depth_.GetMetaData(depth_meta_data);
+
+    // 壁の手前にある物体を描画する
     char* dest = camera_->imageData;
     for (size_t y = 0; y < image_meta_data_.YRes(); ++y) {
       for (size_t x = 0; x < image_meta_data_.XRes(); ++x) {
+
+	if ((x > Wall_x_start) && (x < Wall_x_end) &&
+	    (y > Wall_y_start) && (y < Wall_y_end)) {
+	  int depth = depth_meta_data(x, y);
+	  if (depth > Wall_depth) {
+	    dest[0] = 255;
+	    dest[1] = 255;
+	    dest[2] = 255;
+	    dest += 3;
+	    continue;
+	  }
+	}
+
 	XnRGB24Pixel rgb = image_meta_data_.RGB24Map()(x, y);
 	dest[0] = rgb.nRed;
 	dest[1] = rgb.nGreen;
@@ -96,13 +117,13 @@ namespace
       }
     }
 
-    ::cvShowImage("moving_sphere", camera_);
+    ::cvCvtColor(camera_, camera_, CV_BGR2RGB);
+    ::cvShowImage("depth_wall", camera_);
   }
 
 
   void cleanup(void)
   {
-    ::cvReleaseImage(&sphere_);
     ::cvReleaseImage(&camera_);
   }
 }
@@ -117,26 +138,13 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  double sphere_radian = 0.0;
   bool quit = false;
   while (!quit) {
     // データの取得
     receive_data();
 
-    // Sphere の移動処理
-    const double Moving_degree = 3.0;
-    const double Moving_radius = 1000.0;
-    const double Moving_radius_y = 100.0;
-    sphere_radian += Moving_degree * M_PI / 180.0;
-    int sphere_depth = Moving_radius * cos(sphere_radian);
-    int sphere_x = Moving_radius * cos(sphere_radian);
-    int sphere_y = Moving_radius_y * sin(sphere_radian);
-    // !!!
-    cout << sphere_x << ", " << sphere_y << endl;
-
-
-    // 位置を考慮した描画
-    draw(sphere_x, sphere_y);
+    // 描画
+    draw();
 
     char key = cvWaitKey(10);
     if (key == 'q') {

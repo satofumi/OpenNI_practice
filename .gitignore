@@ -6,3 +6,4 @@ moc_*.cpp
 
 src/Depth_2d_viewer/Depth_2d_viewer
 src/Depth_2d_viewer/Makefile
+src/depth_wall/depth_wall

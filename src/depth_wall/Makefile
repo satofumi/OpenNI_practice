@@ -1,4 +1,4 @@
-TARGET = moving_sphere
+TARGET = depth_wall
 
 CXXFLAGS = -g -O0 -Wall -W $(INCLUDES)
 INCLUDES = -I/usr/include/ni

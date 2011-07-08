@@ -52,14 +52,6 @@ struct Depth_2d_driver::pImpl
 	    return false;
 	}
 
-#if 0
-	xn::ImageGenerator image;
-	status = context_.FindExistingNode(XN_NODE_TYPE_IMAGE, image);
-	if (status != XN_STATUS_OK) {
-	    return false;
-	}
-#endif
-
 	status = context_.FindExistingNode(XN_NODE_TYPE_DEPTH, depth_);
 	if (status != XN_STATUS_OK) {
 	    fprintf(stderr, "FindExistingNode() failed.\n");
@@ -73,13 +65,11 @@ struct Depth_2d_driver::pImpl
 
 Depth_2d_driver::Depth_2d_driver(void) : pimpl(new pImpl)
 {
-    // !!!
 }
 
 
 Depth_2d_driver::~Depth_2d_driver(void)
 {
-    // !!!
 }
 
 
