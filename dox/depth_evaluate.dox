@@ -1,17 +1,24 @@
 /*!
   \page depth_evaluate_page Kinect の深度情報の評価 (記述中)
 
-  \section depth_evaluate_page_x_y 深度情報を X-Y 平面で表示する
+  \section depth_evaluate_x_y 深度情報を X-Y 平面で表示する
 
-  深度情報を描画する点の濃淡で示していると距離の精度はよくわからないので、まずは X-Y 平面の深度情報のみを 2D 表示します。
+  深度情報を描画する点の濃淡で示していると距離の精度はよくわからないので、まずは X-Y 平面の深度情報のみを 2D 表示して評価します。
 
-  !!!
+  評価用のアプリケーションのソースコードは http://github.com/satofumi/OpenNI_practice/tree/master/src/Depth_2d_viewer にあります。
 
-  円柱や三角柱の深度情報の見え方
+  - Depth_2d_viewer の依存ライブラリ
+    - OpenNI
+    - Qt
 
-  距離による深度情報の見え方
 
-  屋外環境での距離の見え方
+  \section depth_evaluate_wall 仮想的な壁を配置してみる
 
-  !!!
+  ある距離に仮想的な壁を描画しています。深度情報がこの壁よりも遠い場合には壁を表示し、近い場合には本来の画像を表示するようにしています。
+
+  サンプルのソースコードは http://github.com/satofumi/OpenNI_practice/tree/master/src/depthwall にあります。
+
+  - depth_wall の依存ライブラリ
+    - OpenNI
+    - OpenCV
 */

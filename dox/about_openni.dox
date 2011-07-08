@@ -61,5 +61,25 @@ $ sudo ./install.sh \endverbatim
 
   インストール中に license key を聞かれるので、入力する。 license key は、モジュールをダウンロードのページに記述してある。 \n
   http://www.openni.org/downloadfiles/12-openni-compliant-middleware-binaries
-  <!-- 0KOIk2JeIBYClPWVnMoRKn5cdY4= ->
+  <!-- 0KOIk2JeIBYClPWVnMoRKn5cdY4= -->
+
+
+  \section about_openni_classes OpenNI の機能
+
+  OpenNI ライブラリの機能
+
+  OpenNI の機能の一覧です。現状の Kinect の利用にて未実装の機能を含みます。 \n
+  (「Kinect センサープログラミング」(秀和システム) の P54 の表より抜粋)
+
+  - Generator
+    - カメラ画像の生成
+    - 距離の検出
+    - 床の検出
+    - 赤外線データの検出
+    - ユーザの検出
+    - 手の動きを検出
+    - ジェスチャーの検出
+    - 音声の検出
+    - Generator の記録
+    - 記録された Generator の再生
 */

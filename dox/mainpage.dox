@@ -1,6 +1,8 @@
 /*!
   \mainpage OpenNI Practice
 
+  このドキュメント、およびソースコードは http://github.com/satofumi/OpenNI_practice/ にあります。
+
   - \subpage about_kinect_page
     - \ref about_kinect_abstract
     - \ref about_kinect_depth
@@ -8,13 +10,8 @@
   - \subpage about_openni_page
     - \ref about_openni_abstract
     - \ref about_openni_install
+    - \ref about_openni_classes
 
   - \subpage depth_evaluate_page
-    - \ref depth_evaluate_page_x_y
-
-  - 深度情報を使ったデモ
-    - !!!
-
-  - ボーン情報を使ったデモ
-    - !!!
+    - \ref depth_evaluate_x_y
 */

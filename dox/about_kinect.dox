@@ -3,20 +3,23 @@
 
   \section about_kinect_abstract 搭載しているデバイスの種類
 
-  搭載しているデバイス
-
-  \image html kinect_devices_image.png 搭載されているデバイス
-
-  - 可視光カメラ
-  - 赤外レーザーを発光させるデバイス
-  - 赤外レーザ用のカメラ
-  - 4 つのマイク
-  - チルト方向にデバイスを動かすためのモータ
+  - 搭載しているデバイス
+    - 可視光カメラ
+    - 赤外レーザーを発光させるデバイス
+    - 赤外レーザ用のカメラ
+    - 4 つのマイク
+    - チルト方向にデバイスを動かすためのモータ
 
 
   \section about_kinect_depth 深度情報の計測原理について
 
-  赤外レーザを発光させるデバイスから多数のスポット光が照射されており、これを三角測量の原理で計測することで、距離情報を得ていると思われる。
+  Kinect は、多数の赤外レーザのスポット光を発光している。
 
-  \image html kinect_length_measurement_image.png 三角測量の原理
+  \image html gamkinectdots530.jpg スポット光の例 http://www.joystiq.com/2010/11/05/kinect-night-vision-goggles-video/ より
+
+  このスポット光を用い、三角測量の原理を用いて、深度情報を得ていると思われる。
+
+  \image html kinect_measurement.png 三角測量の原理の例
+
+  A と B のように距離に違いがある場合、右下のカメラで得られるスポット光の位置が変わるため、深度情報を計算できる。
 */
