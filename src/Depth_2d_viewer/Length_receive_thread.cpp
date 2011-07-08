@@ -26,7 +26,7 @@ struct Length_receive_thread::pImpl
 
 
     pImpl(Lidar& lidar, Length_draw_widget& length_draw_widget)
-      : lidar_(lidar), length_draw_widget_(length_draw_widget), stop_(false)
+        : lidar_(lidar), length_draw_widget_(length_draw_widget), stop_(false)
     {
     }
 };
@@ -60,7 +60,7 @@ void Length_receive_thread::run(void)
 	QColor color(0, 0, 255);
 #if 0
 	pimpl->length_draw_widget_.
-	  set_draw_data(&data[0], data.size(), 0, color);
+            set_draw_data(&data[0], data.size(), 0, color);
 	//pimpl->length_draw_widget_.redraw();
 #else
 	emit data_received(&data[0], data.size(), NULL, 0, 0);

@@ -32,15 +32,15 @@ struct Depth_2d_driver::pImpl
 {
     xn::Context context_;
     xn::DepthGenerator depth_;
-  bool is_open_;
-  int min_step_;
-  int max_step_;
+    bool is_open_;
+    int min_step_;
+    int max_step_;
 
 
-  pImpl(void) : is_open_(false),
-		min_step_(Default_min_step), max_step_(Default_max_step)
-  {
-  }
+    pImpl(void) : is_open_(false),
+                  min_step_(Default_min_step), max_step_(Default_max_step)
+    {
+    }
 
 
     bool open(void)
@@ -256,7 +256,7 @@ bool Depth_2d_driver::set_sensor_time_stamp(long time_stamp)
 
 double Depth_2d_driver::index2rad(int index) const
 {
-  return (index - (pimpl->max_step_ / 2)) * Vertical_viewing_deg_ / pimpl->max_step_ * M_PI / 180.0;
+    return (index - (pimpl->max_step_ / 2)) * Vertical_viewing_deg_ / pimpl->max_step_ * M_PI / 180.0;
 }
 
 
